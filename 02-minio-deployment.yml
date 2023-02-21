@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: common
+  name: minio
+
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: minio-label-srv
+
+  template:
+    metadata:
+      labels:
+        app: minio-label-srv
+
+    spec:
+      containers:
+        - name: minio-srv-container
+          image: bitnami/minio:2022.8.11-debian-11-r0
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "100m"
+          env:
+          - name: MINIO_ROOT_USER
+            value: "sestek"
+          - name: MINIO_ROOT_PASSWORD
+            value: "Password1"

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: prod
+  name: minio-client
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio-label
+
+  template:
+    metadata:
+      labels:
+        app: minio-label
+
+    spec:
+      containers:
+        - name: minio-client-container
+          image: bitnami/minio-client:2022.8.11-debian-11-r0
+          command: ["tail","-f","/dev/null"]
